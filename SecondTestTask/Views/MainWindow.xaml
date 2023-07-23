@@ -1,0 +1,36 @@
+﻿<Window x:Class="SecondTestTask.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecondTestTask.ViewModels"
+        xmlns:vs="clr-namespace:SecondTestTask.Views"
+        mc:Ignorable="d"
+        Title="SecondTestTask" Height="400" Width="400"
+        MinWidth="300" MinHeight="300">
+
+    <Grid VerticalAlignment="Top">
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+                <vs:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:OperationsViewModel}">
+                <vs:OperationsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:InvalidOperationViewModel}">
+                <vs:InvalidOperationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:BalanceViewModel}">
+                <vs:BalanceView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DepositViewModel}">
+                <vs:DepositView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:WithdrawViewModel}">
+                <vs:WithdrawView />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
+</Window>

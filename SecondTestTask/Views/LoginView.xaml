@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="SecondTestTask.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SecondTestTask.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0">Card Id:</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="{Binding CardId}"
+                 PreviewTextInput="UIElement_OnPreviewTextInput" />
+        <Label Grid.Row="1" Grid.Column="0">Card code:</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Text="{Binding Code}"
+                 PreviewTextInput="UIElement_OnPreviewTextInput" />
+        <Button Grid.Row="2" Grid.Column="1" Command="{Binding NavigateToOperationsMenu}">Validate</Button>
+    </Grid>
+</UserControl>
