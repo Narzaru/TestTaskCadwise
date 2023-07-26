@@ -7,7 +7,9 @@ var delimitersCleaner = new DelimitersCleaner("!, ");
 var wordRemover = new WordRemover(6);
 
 FileProcessor fileProcessor =
-    new FileProcessor(new IPiecewiseReader[] { fileReader }, new[] { }
-new IPiecewiseTextProcessor[] { delimitersCleaner, wordRemover });
+    new FileProcessor(
+        new IPiecewiseReader[] { fileReader },
+        Array.Empty<IPiecewiseTextWrite>(),
+        new IPiecewiseTextProcessor[] { delimitersCleaner, wordRemover });
 
 await fileProcessor.Run();
