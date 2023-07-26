@@ -1,0 +1,3 @@
+﻿Hello, World!
+Test task for Cadwise!
+Remove, all delimiters and, not sure , done    success!!!
