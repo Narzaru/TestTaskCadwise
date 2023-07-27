@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Atm.AtmModel.Interfaces\Atm.AtmModel.Interfaces.csproj" />
+      <ProjectReference Include="..\Atm.UserAccountModel.Interfaces\Atm.UserAccountModel.Interfaces.csproj" />
+      <ProjectReference Include="..\Atm.AtmModel.Services\Atm.AtmModel.Services.csproj" />
+    </ItemGroup>
+
+</Project>
