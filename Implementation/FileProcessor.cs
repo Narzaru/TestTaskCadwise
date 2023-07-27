@@ -4,16 +4,20 @@ namespace Implementation;
 
 public class FileProcessor
 {
-    private readonly IPiecewiseReader[] _readers;
+    private readonly IPiecewiseFileReader[] _readers;
+
     private readonly IPiecewiseTextProcessor[] _textProcessors;
 
+    private readonly IPiecewiseFileWriterFabric _piecewiseFilePiecewiseWriterFabric;
+
     public FileProcessor(
-        IEnumerable<IPiecewiseReader> readers,
-        IEnumerable<IPiecewiseTextWrite> writers,
-        IEnumerable<IPiecewiseTextProcessor> textProcessors)
+        IEnumerable<IPiecewiseFileReader> readers,
+        IEnumerable<IPiecewiseTextProcessor> textProcessors,
+        IPiecewiseFileWriterFabric writerFabric)
     {
         _readers = readers.ToArray();
         _textProcessors = textProcessors.ToArray();
+        _piecewiseFilePiecewiseWriterFabric = writerFabric;
     }
 
     public async Task Run()
@@ -21,12 +25,21 @@ public class FileProcessor
         foreach (var reader in _readers)
             await Task.Run(() =>
             {
-                while (!reader.IsEndOfRead())
+                try
                 {
-                    var chunk = reader.ReadNextChunk();
-                    foreach (var textProcessor in _textProcessors) chunk = textProcessor.ProcessChunk(chunk);
+                    using var writer = _piecewiseFilePiecewiseWriterFabric.NewFileWriter(reader.FullFilePath());
+                    while (!reader.IsEndOfFile())
+                    {
+                        var chunk = reader.ReadNextChunk();
+                        foreach (var textProcessor in _textProcessors) chunk = textProcessor.ProcessChunk(chunk);
+                        foreach (var textProcessor in _textProcessors) chunk += textProcessor.Final();
 
-                    Console.WriteLine(chunk);
+                        writer.WriteChunk(chunk);
+                    }
+                }
+                catch
+                {
+                    // ignore
                 }
             });
     }

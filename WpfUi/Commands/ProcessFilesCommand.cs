@@ -25,21 +25,17 @@ public class ProcessFilesCommand : AsyncCommandBase
     public override async Task ExecuteAsync(object? parameter)
     {
         m_mainWindowViewModel.ProcessInProgress = true;
-        var fileHandler = new __FileHandler();
+        var fileHandler = new FileProcessorFacade();
 
         var removeDelimiters = m_mainWindowViewModel.RemoveDelimiters;
         if (!int.TryParse(m_mainWindowViewModel.MaxWordLength, out var maxWordLength)) maxWordLength = -1;
 
-        var rules = new __FileHandler.ProcessRules
-        {
-            EraseDelimiters = removeDelimiters,
-            MaxWordLength = maxWordLength
-        };
-
-        await Task.Run(() =>
-        {
-            fileHandler.ProcessFiles(m_mainWindowViewModel.Files, m_mainWindowViewModel.OutputDirectory, rules);
-        });
+        string delimiters = removeDelimiters ? ",.;:!?-'`()[]{}<>/\\|\t" : "";
+        await fileHandler.ProcessFiles(
+            m_mainWindowViewModel.Files,
+            m_mainWindowViewModel.OutputDirectory,
+            maxWordLength,
+            delimiters);
         m_mainWindowViewModel.ProcessInProgress = false;
     }
 

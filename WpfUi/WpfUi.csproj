@@ -5,6 +5,7 @@
         <TargetFramework>net7.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
+        <RootNamespace>Ui</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +17,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1"/>
+        <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Implementation\Implementation.csproj" />
     </ItemGroup>
 
 </Project>

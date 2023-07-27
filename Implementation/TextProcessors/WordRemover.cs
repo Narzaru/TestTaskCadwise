@@ -41,7 +41,7 @@ public class WordRemover : IPiecewiseTextProcessor
 
     public string Final()
     {
-        return _trailWord;
+        return _trailWord.Remove(0);
     }
 
     public string ProcessLine(string line)

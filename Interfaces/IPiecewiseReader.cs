@@ -6,5 +6,5 @@ public interface IPiecewiseReader
 
     public string ReadNextChunk();
 
-    public bool IsEndOfRead();
+    public bool IsEndOfFile();
 }

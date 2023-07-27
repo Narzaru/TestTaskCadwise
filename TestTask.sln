@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33801.447
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ui", "Ui\Ui.csproj", "{1B39168A-CB60-4E5E-832D-221FF9317782}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUi", "WpfUi\WpfUi.csproj", "{1B39168A-CB60-4E5E-832D-221FF9317782}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondTestTask", "SecondTestTask\SecondTestTask.csproj", "{518F7D91-DBDD-4C9A-B40E-BAF3E09EBB0A}"
 EndProject
@@ -14,11 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileProcessor", "FileProcessor", "{0EA03C84-ECBA-4F45-A0FC-BD8B24928A76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{2CB063A2-88DD-4C79-BDE8-3BF5A6636E3C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRunner", "ConsoleRunner\ConsoleRunner.csproj", "{B5E1A1B3-7937-43B7-A878-EEEAFA310568}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EA946CA3-552F-4478-9E59-83A52DD8C77E} = {EA946CA3-552F-4478-9E59-83A52DD8C77E}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +41,6 @@ Global
 		{2CB063A2-88DD-4C79-BDE8-3BF5A6636E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CB063A2-88DD-4C79-BDE8-3BF5A6636E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CB063A2-88DD-4C79-BDE8-3BF5A6636E3C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5E1A1B3-7937-43B7-A878-EEEAFA310568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5E1A1B3-7937-43B7-A878-EEEAFA310568}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5E1A1B3-7937-43B7-A878-EEEAFA310568}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5E1A1B3-7937-43B7-A878-EEEAFA310568}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +53,5 @@ Global
 		{045436B5-CBA2-4E52-AC2E-41474E2F767D} = {0EA03C84-ECBA-4F45-A0FC-BD8B24928A76}
 		{1B39168A-CB60-4E5E-832D-221FF9317782} = {0EA03C84-ECBA-4F45-A0FC-BD8B24928A76}
 		{2CB063A2-88DD-4C79-BDE8-3BF5A6636E3C} = {0EA03C84-ECBA-4F45-A0FC-BD8B24928A76}
-		{B5E1A1B3-7937-43B7-A878-EEEAFA310568} = {0EA03C84-ECBA-4F45-A0FC-BD8B24928A76}
 	EndGlobalSection
 EndGlobal
