@@ -1,10 +1,11 @@
-﻿using SecondTestTask.Models.Atm;
-using SecondTestTask.Navigation;
+﻿using SecondTestTask.Navigation;
 
 namespace SecondTestTask.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private NavigationStore m_navigationStore;
+
     public MainWindowViewModel(NavigationStore navigationStore)
     {
         m_navigationStore = navigationStore;
@@ -12,6 +13,4 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     public ViewModelBase CurrentViewModel => m_navigationStore.CurrentViewModel;
-
-    private NavigationStore m_navigationStore;
 }

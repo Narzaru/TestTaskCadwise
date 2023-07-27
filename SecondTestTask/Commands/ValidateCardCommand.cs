@@ -1,5 +1,4 @@
-﻿using System;
-using SecondTestTask.Models.Account;
+﻿using SecondTestTask.Models.Account;
 using SecondTestTask.Models.Atm;
 using SecondTestTask.Services;
 using SecondTestTask.ViewModels;
@@ -8,7 +7,14 @@ namespace SecondTestTask.Commands;
 
 public class ValidateCardCommand : CommandBase
 {
-    public ValidateCardCommand(LoginViewModel vm, AtmController atm, NavigationService navigateToOperation, NavigationService navigateToError)
+    private AtmController m_atm;
+    private NavigationService m_navigateToError;
+    private NavigationService m_navigateToOperation;
+
+    private LoginViewModel m_vm;
+
+    public ValidateCardCommand(LoginViewModel vm, AtmController atm, NavigationService navigateToOperation,
+        NavigationService navigateToError)
     {
         m_vm = vm;
         m_atm = atm;
@@ -41,9 +47,4 @@ public class ValidateCardCommand : CommandBase
 
         m_navigateToOperation.Navigate();
     }
-
-    private LoginViewModel m_vm;
-    private AtmController m_atm;
-    private NavigationService m_navigateToOperation;
-    private NavigationService m_navigateToError;
 }

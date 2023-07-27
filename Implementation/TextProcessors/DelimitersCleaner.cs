@@ -5,6 +5,8 @@ namespace Implementation.TextProcessors;
 
 public class DelimitersCleaner : IPiecewiseTextProcessor
 {
+    private char[] _delimiters;
+
     public DelimitersCleaner(IEnumerable<char> delimiters)
     {
         _delimiters = delimiters.ToArray();
@@ -15,17 +17,13 @@ public class DelimitersCleaner : IPiecewiseTextProcessor
         var resultString = new StringBuilder();
         var delimiterFound = false;
 
-        foreach (char character in chunk)
-        {
+        foreach (var character in chunk)
             if (!_delimiters.Contains(character))
             {
                 if (delimiterFound)
                 {
                     delimiterFound = false;
-                    if (character is not ' ' and not '\n' and not '\r')
-                    {
-                        resultString.Append(' ');
-                    }
+                    if (character is not ' ' and not '\n' and not '\r') resultString.Append(' ');
                 }
 
                 resultString.Append(character);
@@ -34,16 +32,17 @@ public class DelimitersCleaner : IPiecewiseTextProcessor
             {
                 delimiterFound = true;
             }
-        }
 
         return resultString.ToString();
     }
 
     public string Final()
-        => string.Empty;
+    {
+        return string.Empty;
+    }
 
     public string ProcessLine(string line)
-        => ProcessChunk(line);
-
-    private char[] _delimiters;
+    {
+        return ProcessChunk(line);
+    }
 }

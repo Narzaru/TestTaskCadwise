@@ -5,12 +5,12 @@ namespace Implementation.TextProcessors;
 
 public class WordRemover : IPiecewiseTextProcessor
 {
+    private int _minWordLength;
+    private string _trailWord;
+
     public WordRemover(int limitWordLength)
     {
-        if (limitWordLength < 0)
-        {
-            throw new ArgumentException("The minimum word length must be positive");
-        }
+        if (limitWordLength < 0) throw new ArgumentException("The minimum word length must be positive");
 
         _minWordLength = limitWordLength;
         _trailWord = string.Empty;
@@ -23,25 +23,25 @@ public class WordRemover : IPiecewiseTextProcessor
         var result = new StringBuilder();
 
         foreach (var character in chunk)
-        {
             if (character is not (' ' or '\r' or '\n'))
             {
                 word.Append(character);
             }
             else
             {
-                if (word.Length >= _minWordLength)
-                {
-                    result.Append(word);
-                }
+                if (word.Length >= _minWordLength) result.Append(word);
 
                 result.Append(character);
                 word.Clear();
             }
-        }
 
         _trailWord = word.ToString();
         return result.ToString();
+    }
+
+    public string Final()
+    {
+        return _trailWord;
     }
 
     public string ProcessLine(string line)
@@ -52,10 +52,4 @@ public class WordRemover : IPiecewiseTextProcessor
 
         return processedString.ToString();
     }
-
-    public string Final()
-        => _trailWord;
-
-    private int _minWordLength;
-    private string _trailWord;
 }

@@ -9,9 +9,9 @@ public class DelimiterCleanerTests
     public void ProcessChunk_StringWithDelimitersInTheListOfDelimitersToRemove_ReturnCorrectProcessedString()
     {
         var delimitersCleaner = new DelimitersCleaner(new List<char> { ',', '!', '-', '=', ' ' });
-        string chunk = "aboba,,,boba, doda, jotm! bkv = lsd";
-        string actual = delimitersCleaner.ProcessChunk(chunk);
-        string expected = "aboba boba doda jotm bkv lsd";
+        var chunk = "aboba,,,boba, doda, jotm! bkv = lsd";
+        var actual = delimitersCleaner.ProcessChunk(chunk);
+        var expected = "aboba boba doda jotm bkv lsd";
         Assert.Equal(expected, actual);
     }
 
@@ -19,9 +19,9 @@ public class DelimiterCleanerTests
     public void ProcessChunk_StringWithDelimitersNotInTheListOfDelimitersToRemove_ReturnCorrectProcessedString()
     {
         var delimitersCleaner = new DelimitersCleaner(new List<char> { ',', ' ' });
-        string chunk = "aboba,,,boba, doda, jotm!   bkv = fsd";
-        string actual = delimitersCleaner.ProcessChunk(chunk);
-        string expected = "aboba boba doda jotm! bkv = fsd";
+        var chunk = "aboba,,,boba, doda, jotm!   bkv = fsd";
+        var actual = delimitersCleaner.ProcessChunk(chunk);
+        var expected = "aboba boba doda jotm! bkv = fsd";
         Assert.Equal(expected, actual);
     }
 
@@ -29,8 +29,8 @@ public class DelimiterCleanerTests
     public void ProcessChunk_EmptyString_ReturnEmptyProcessedStringAndNoThrow()
     {
         var delimitersCleaner = new DelimitersCleaner(new List<char> { ',', ' ' });
-        string chunk = "";
-        string actual = string.Empty;
+        var chunk = "";
+        var actual = string.Empty;
         var exception = Record.Exception(() => actual = delimitersCleaner.ProcessChunk(chunk));
         Assert.True(string.IsNullOrEmpty(actual) && exception is null);
     }
@@ -40,9 +40,9 @@ public class DelimiterCleanerTests
         ProcessChunk_StringWithPartDelimitersInTheListOfDelimitersToRemoveAndWithNewLines_ReturnCorrectProcessedString()
     {
         var delimitersCleaner = new DelimitersCleaner("!:= ");
-        string chunk = "abob,a,\nboba!\nvova = avov";
-        string actual = delimitersCleaner.ProcessChunk(chunk);
-        string expected = "abob,a,\nboba\nvova avov";
+        var chunk = "abob,a,\nboba!\nvova = avov";
+        var actual = delimitersCleaner.ProcessChunk(chunk);
+        var expected = "abob,a,\nboba\nvova avov";
         Assert.Equal(expected, actual);
     }
 
@@ -50,9 +50,9 @@ public class DelimiterCleanerTests
     public void ProcessChunk_StringWithDelimitersAndNewLinesInTheListOfDelimiters_ReturnCorrectProcessedString()
     {
         var delimitersCleaner = new DelimitersCleaner(",!:=\r\n ");
-        string chunk = "abob,a,\nboba!\nvova = avov";
-        string actual = delimitersCleaner.ProcessChunk(chunk);
-        string expected = "abob a boba vova avov";
+        var chunk = "abob,a,\nboba!\nvova = avov";
+        var actual = delimitersCleaner.ProcessChunk(chunk);
+        var expected = "abob a boba vova avov";
         Assert.Equal(expected, actual);
     }
 }
@@ -69,12 +69,9 @@ public class WordRemoverTests
         int minimumWordLength)
     {
         var wordRemover = new WordRemover(minimumWordLength);
-        string actual = string.Empty;
+        var actual = string.Empty;
 
-        foreach (var chunk in chunks)
-        {
-            actual += wordRemover.ProcessChunk(chunk);
-        }
+        foreach (var chunk in chunks) actual += wordRemover.ProcessChunk(chunk);
 
         actual += wordRemover.Final();
 

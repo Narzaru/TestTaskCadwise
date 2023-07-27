@@ -6,6 +6,9 @@ namespace SecondTestTask.Models.Services;
 
 public class AccountService : IAccountService
 {
+    private SortedDictionary<ulong, string> m_accounts;
+    private SortedDictionary<ulong, decimal> m_balance;
+
     public AccountService()
     {
         m_accounts = new SortedDictionary<ulong, string>
@@ -28,12 +31,8 @@ public class AccountService : IAccountService
         if (inputCode == null) throw new ArgumentNullException(nameof(inputCode));
 
         if (m_accounts.TryGetValue(id, out var accountCode))
-        {
             if (accountCode == inputCode)
-            {
                 return new AccountBase(id, id, new Balance.Balance(m_balance[id]));
-            }
-        }
 
         return null;
     }
@@ -41,7 +40,6 @@ public class AccountService : IAccountService
     public bool TryUpdateAccount(IAccount account)
     {
         if (account.GetAccountId() == account.GetAccountTempToken())
-        {
             try
             {
                 m_balance[account.GetAccountId()] = account.GetBalance();
@@ -51,11 +49,7 @@ public class AccountService : IAccountService
             {
                 return false;
             }
-        }
 
         return false;
     }
-
-    private SortedDictionary<ulong, string> m_accounts;
-    private SortedDictionary<ulong, decimal> m_balance;
 }

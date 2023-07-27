@@ -1,12 +1,14 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using TestTask.Models;
-using TestTask.ViewModels;
+using Ui.Models;
+using Ui.ViewModels;
 
-namespace TestTask.Commands;
+namespace Ui.Commands;
 
 public class ProcessFilesCommand : AsyncCommandBase
 {
+    private MainWindowViewModel m_mainWindowViewModel;
+
     public ProcessFilesCommand(MainWindowViewModel mainWindowViewModel)
     {
         m_mainWindowViewModel = mainWindowViewModel;
@@ -14,9 +16,7 @@ public class ProcessFilesCommand : AsyncCommandBase
         {
             if (args.PropertyName == nameof(m_mainWindowViewModel.OutputDirectory) ||
                 args.PropertyName == nameof(m_mainWindowViewModel.ProcessInProgress))
-            {
                 OnCanExecutedChanged();
-            }
         };
 
         m_mainWindowViewModel.Files.CollectionChanged += (sender, args) => { OnCanExecutedChanged(); };
@@ -25,15 +25,12 @@ public class ProcessFilesCommand : AsyncCommandBase
     public override async Task ExecuteAsync(object? parameter)
     {
         m_mainWindowViewModel.ProcessInProgress = true;
-        var fileHandler = new FileHandler();
+        var fileHandler = new __FileHandler();
 
         var removeDelimiters = m_mainWindowViewModel.RemoveDelimiters;
-        if (!int.TryParse(m_mainWindowViewModel.MaxWordLength, out int maxWordLength))
-        {
-            maxWordLength = -1;
-        }
+        if (!int.TryParse(m_mainWindowViewModel.MaxWordLength, out var maxWordLength)) maxWordLength = -1;
 
-        var rules = new FileHandler.ProcessRules()
+        var rules = new __FileHandler.ProcessRules
         {
             EraseDelimiters = removeDelimiters,
             MaxWordLength = maxWordLength
@@ -51,6 +48,4 @@ public class ProcessFilesCommand : AsyncCommandBase
         return m_mainWindowViewModel.OutputDirectory != "Not selected" && m_mainWindowViewModel.Files.Any() &&
                !m_mainWindowViewModel.ProcessInProgress;
     }
-
-    private MainWindowViewModel m_mainWindowViewModel;
 }

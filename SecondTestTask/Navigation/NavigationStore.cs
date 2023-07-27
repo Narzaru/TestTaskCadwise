@@ -5,6 +5,8 @@ namespace SecondTestTask.Navigation;
 
 public class NavigationStore
 {
+    private ViewModelBase m_currentViewModel;
+
     public ViewModelBase CurrentViewModel
     {
         get => m_currentViewModel;
@@ -16,8 +18,6 @@ public class NavigationStore
     }
 
     public event Action CurrentViewModelChanged;
-
-    private ViewModelBase m_currentViewModel;
 
     private void OnCurrentViewModelChanged()
     {

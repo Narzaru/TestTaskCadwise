@@ -1,19 +1,18 @@
 ﻿using System.Windows.Forms;
-using TestTask.ViewModels;
+using Ui.ViewModels;
 
-namespace TestTask.Commands;
+namespace Ui.Commands;
 
 public class OpenOutputDirectoryCommand : CommandBase
 {
+    private readonly MainWindowViewModel m_mainWindowViewModel;
+
     public OpenOutputDirectoryCommand(MainWindowViewModel mainWindowViewModel)
     {
         m_mainWindowViewModel = mainWindowViewModel;
         m_mainWindowViewModel.PropertyChanged += (sender, args) =>
         {
-            if (args.PropertyName == nameof(mainWindowViewModel.ProcessInProgress))
-            {
-                OnCanExecutedChanged();
-            }
+            if (args.PropertyName == nameof(mainWindowViewModel.ProcessInProgress)) OnCanExecutedChanged();
         };
     }
 
@@ -21,14 +20,11 @@ public class OpenOutputDirectoryCommand : CommandBase
     {
         var dialog = new FolderBrowserDialog();
         var result = dialog.ShowDialog();
-        if (result == DialogResult.OK)
-        {
-            m_mainWindowViewModel.OutputDirectory = dialog.SelectedPath;
-        }
+        if (result == DialogResult.OK) m_mainWindowViewModel.OutputDirectory = dialog.SelectedPath;
     }
 
     public override bool CanExecute(object? parameter)
-        => !m_mainWindowViewModel.ProcessInProgress;
-
-    private readonly MainWindowViewModel m_mainWindowViewModel;
+    {
+        return !m_mainWindowViewModel.ProcessInProgress;
+    }
 }

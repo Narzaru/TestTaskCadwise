@@ -1,22 +1,19 @@
 ﻿using System.IO;
-using System.Linq;
 using Microsoft.Win32;
-using TestTask.Models;
-using TestTask.ViewModels;
+using Ui.ViewModels;
 
-namespace TestTask.Commands;
+namespace Ui.Commands;
 
 public class OpenFilesDialogCommand : CommandBase
 {
+    private MainWindowViewModel m_mainWindowViewModel;
+
     public OpenFilesDialogCommand(MainWindowViewModel mainWindowViewModel)
     {
         m_mainWindowViewModel = mainWindowViewModel;
         m_mainWindowViewModel.PropertyChanged += (sender, args) =>
         {
-            if (args.PropertyName == nameof(m_mainWindowViewModel.ProcessInProgress))
-            {
-                OnCanExecutedChanged();
-            }
+            if (args.PropertyName == nameof(m_mainWindowViewModel.ProcessInProgress)) OnCanExecutedChanged();
         };
     }
 
@@ -40,7 +37,7 @@ public class OpenFilesDialogCommand : CommandBase
     }
 
     public override bool CanExecute(object? parameter)
-        => !m_mainWindowViewModel.ProcessInProgress;
-
-    private MainWindowViewModel m_mainWindowViewModel;
+    {
+        return !m_mainWindowViewModel.ProcessInProgress;
+    }
 }

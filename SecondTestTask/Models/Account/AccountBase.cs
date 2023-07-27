@@ -7,6 +7,12 @@ namespace SecondTestTask.Models.Account;
 
 public class AccountBase : IAccount
 {
+    private IBalance m_balance;
+    private List<IBalanceSnapshot> m_balanceSnapshot;
+    private ulong m_token;
+
+    private ulong m_uid;
+
     public AccountBase(ulong accountId, ulong token, IBalance balance)
     {
         m_token = token;
@@ -29,10 +35,7 @@ public class AccountBase : IAccount
 
     public void CancelOperation()
     {
-        if (!m_balanceSnapshot.Any())
-        {
-            throw new FieldAccessException("Operation stack is empty");
-        }
+        if (!m_balanceSnapshot.Any()) throw new FieldAccessException("Operation stack is empty");
 
         var snapshot = m_balanceSnapshot.Last();
         m_balance.RestoreFromSnapshot(snapshot);
@@ -40,16 +43,17 @@ public class AccountBase : IAccount
     }
 
     public decimal GetBalance()
-        => m_balance.GetCurrentBalance();
+    {
+        return m_balance.GetCurrentBalance();
+    }
 
     public ulong GetAccountId()
-        => m_uid;
+    {
+        return m_uid;
+    }
 
     public ulong GetAccountTempToken()
-        => m_token;
-
-    private ulong m_uid;
-    private ulong m_token;
-    private IBalance m_balance;
-    private List<IBalanceSnapshot> m_balanceSnapshot;
+    {
+        return m_token;
+    }
 }

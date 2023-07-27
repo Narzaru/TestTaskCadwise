@@ -1,16 +1,19 @@
 ﻿using System.Collections.ObjectModel;
-using TestTask.Commands;
-using TestTask.Models;
+using Ui.Commands;
 
-namespace TestTask.ViewModels;
+namespace Ui.ViewModels;
 
 public class MainWindowViewModel : BaseViewModel
 {
+    private string m_outputDirectory;
+
+    private bool m_processInProgress;
+
     public MainWindowViewModel()
     {
         m_outputDirectory = string.Empty;
         MaxWordLength = "0";
-        Files = new();
+        Files = new ObservableCollection<string>();
         m_processInProgress = false;
         OpenFilesDialogCommand = new OpenFilesDialogCommand(this);
         OpenOutputDirectoryCommand = new OpenOutputDirectoryCommand(this);
@@ -21,10 +24,7 @@ public class MainWindowViewModel : BaseViewModel
     {
         get
         {
-            if (string.IsNullOrEmpty(m_outputDirectory))
-            {
-                return "Not selected";
-            }
+            if (string.IsNullOrEmpty(m_outputDirectory)) return "Not selected";
 
             return m_outputDirectory;
         }
@@ -34,8 +34,6 @@ public class MainWindowViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
-
-    private string m_outputDirectory;
 
     public string MaxWordLength { get; set; }
 
@@ -58,6 +56,4 @@ public class MainWindowViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
-
-    private bool m_processInProgress;
 }

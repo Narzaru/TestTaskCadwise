@@ -4,23 +4,16 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace TestTask.Models;
+namespace Ui.Models;
 
-public class FileHandler
+public class __FileHandler
 {
-    public struct ProcessRules
-    {
-        public int MaxWordLength;
-        public bool EraseDelimiters;
-    }
+    private ProcessRules m_rules;
 
     public void ProcessFiles(IEnumerable<string> inputFilePaths, string outputDirectory, ProcessRules rules)
     {
         m_rules = rules;
-        foreach (var inputFilePath in inputFilePaths)
-        {
-            ProcessFile(inputFilePath, outputDirectory);
-        }
+        foreach (var inputFilePath in inputFilePaths) ProcessFile(inputFilePath, outputDirectory);
     }
 
     public void ProcessFile(string inputFilePath, string outputDirectory)
@@ -49,27 +42,19 @@ public class FileHandler
         var word = new StringBuilder();
 
         foreach (var c in input)
-        {
             if (char.IsLetterOrDigit(c))
             {
                 word.Append(c);
             }
             else
             {
-                if (word.Length <= m_rules.MaxWordLength)
-                {
-                    result.Append(word);
-                }
+                if (word.Length <= m_rules.MaxWordLength) result.Append(word);
 
                 result.Append(c);
                 word.Clear();
             }
-        }
 
-        if (word.Length <= m_rules.MaxWordLength)
-        {
-            result.Append(word);
-        }
+        if (word.Length <= m_rules.MaxWordLength) result.Append(word);
 
         return result.ToString();
     }
@@ -86,7 +71,13 @@ public class FileHandler
     }
 
     private string FormOutputPath(string filePath, string outputDirectory)
-        => $"{outputDirectory}/{Path.GetFileNameWithoutExtension(filePath)}.processed{Path.GetExtension(filePath)}";
+    {
+        return $"{outputDirectory}/{Path.GetFileNameWithoutExtension(filePath)}.processed{Path.GetExtension(filePath)}";
+    }
 
-    private ProcessRules m_rules;
+    public struct ProcessRules
+    {
+        public int MaxWordLength;
+        public bool EraseDelimiters;
+    }
 }

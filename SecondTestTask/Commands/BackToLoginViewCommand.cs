@@ -6,6 +6,11 @@ namespace SecondTestTask.Commands;
 
 public class BackToLoginViewCommand : CommandBase
 {
+    private AtmController m_atm;
+    private NavigationService m_navigationService;
+
+    private OperationsViewModel m_vm;
+
     public BackToLoginViewCommand(OperationsViewModel vm, AtmController atm, NavigationService navigationService)
     {
         m_vm = vm;
@@ -18,8 +23,4 @@ public class BackToLoginViewCommand : CommandBase
         m_atm.ExtractCard();
         m_navigationService.Navigate();
     }
-
-    private OperationsViewModel m_vm;
-    private AtmController m_atm;
-    private NavigationService m_navigationService;
 }

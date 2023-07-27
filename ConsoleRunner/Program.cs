@@ -6,7 +6,7 @@ var fileReader = new PiecewiseFileReader("TestFile.txt");
 var delimitersCleaner = new DelimitersCleaner("!, ");
 var wordRemover = new WordRemover(6);
 
-FileProcessor fileProcessor =
+var fileProcessor =
     new FileProcessor(
         new IPiecewiseReader[] { fileReader },
         Array.Empty<IPiecewiseTextWrite>(),

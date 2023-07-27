@@ -1,11 +1,12 @@
 ﻿using SecondTestTask.Services;
-using SecondTestTask.ViewModels;
 
 namespace SecondTestTask.Commands;
 
 public class ShowLoginErrorCommand : CommandBase
 {
-    ShowLoginErrorCommand(NavigationService navigationService)
+    private NavigationService m_navigationService;
+
+    private ShowLoginErrorCommand(NavigationService navigationService)
     {
         m_navigationService = navigationService;
     }
@@ -14,6 +15,4 @@ public class ShowLoginErrorCommand : CommandBase
     {
         m_navigationService.Navigate();
     }
-
-    private NavigationService m_navigationService;
 }

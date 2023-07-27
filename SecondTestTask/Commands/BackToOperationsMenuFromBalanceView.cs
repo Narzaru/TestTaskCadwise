@@ -4,6 +4,8 @@ namespace SecondTestTask.Commands;
 
 public class BackToOperationsMenuFromBalanceView : CommandBase
 {
+    private NavigationService m_navigationService;
+
     public BackToOperationsMenuFromBalanceView(NavigationService navigationService)
     {
         m_navigationService = navigationService;
@@ -13,6 +15,4 @@ public class BackToOperationsMenuFromBalanceView : CommandBase
     {
         m_navigationService.Navigate();
     }
-
-    private NavigationService m_navigationService;
 }

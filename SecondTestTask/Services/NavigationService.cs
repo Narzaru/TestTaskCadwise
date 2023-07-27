@@ -6,8 +6,8 @@ namespace SecondTestTask.Services;
 
 public class NavigationService
 {
-    private readonly NavigationStore m_navigationStore;
     private readonly Func<ViewModelBase> m_createViewModel;
+    private readonly NavigationStore m_navigationStore;
 
     public NavigationService(NavigationStore navigationStore, Func<ViewModelBase> createViewModel)
     {

@@ -14,6 +14,27 @@ public class PiecewiseFileReader : IPiecewiseReader, IDisposable
         _disposed = false;
     }
 
+    public bool EndOfFile => Reader.EndOfStream;
+
+    public void SetChunkSize(int chunkSize)
+    {
+        BufferSize = chunkSize;
+    }
+
+    public string ReadNextChunk()
+    {
+        var buffer = new char[BufferSize];
+        var readChars = Reader.Read(buffer, 0, BufferSize);
+        var chunkString = new string(buffer, 0, readChars);
+
+        return chunkString;
+    }
+
+    public bool IsEndOfRead()
+    {
+        return EndOfFile;
+    }
+
     #region DisposeRegion
 
     private bool _disposed;
@@ -23,10 +44,8 @@ public class PiecewiseFileReader : IPiecewiseReader, IDisposable
         if (!_disposed)
         {
             if (disposing)
-            {
                 // Dispose managed resources (StreamReader)
                 Reader.Dispose();
-            }
 
             // Dispose unmanaged resources (none in this case)
 
@@ -41,20 +60,4 @@ public class PiecewiseFileReader : IPiecewiseReader, IDisposable
     }
 
     #endregion
-
-    public void SetChunkSize(int chunkSize)
-        => BufferSize = chunkSize;
-
-    public string ReadNextChunk()
-    {
-        char[] buffer = new char[BufferSize];
-        int readChars = Reader.Read(buffer, 0, BufferSize);
-        string chunkString = new string(buffer, 0, readChars);
-
-        return chunkString;
-    }
-
-    public bool IsEndOfRead() => EndOfFile;
-
-    public bool EndOfFile => Reader.EndOfStream;
 }

@@ -11,26 +11,20 @@ public class MoneyTray
         NumberOfBanknotesLimit = BanknoteDenomination;
     }
 
-    public decimal BanknoteDenomination { get; private set; }
+    public decimal BanknoteDenomination { get; }
     public decimal NumberOfBanknotes { get; private set; }
-    public decimal NumberOfBanknotesLimit { get; private set; }
+    public decimal NumberOfBanknotesLimit { get; }
 
     public void IncreaseNumberOfBanknotes()
     {
-        if (NumberOfBanknotes + 1 > NumberOfBanknotesLimit)
-        {
-            throw new Exception("Banknote limit exceeded");
-        }
+        if (NumberOfBanknotes + 1 > NumberOfBanknotesLimit) throw new Exception("Banknote limit exceeded");
 
         ++NumberOfBanknotes;
     }
 
     private void DecreaseNumberOfBanknotes()
     {
-        if (NumberOfBanknotes - 1 < 0)
-        {
-            throw new Exception("Banknote limit exceeded");
-        }
+        if (NumberOfBanknotes - 1 < 0) throw new Exception("Banknote limit exceeded");
 
         --NumberOfBanknotes;
     }

@@ -7,17 +7,20 @@ namespace SecondTestTask.Models.Atm;
 
 public class AtmController
 {
+    private IAccount? m_account;
+    private IAccountService m_accountService;
+    private SortedSet<ulong> m_allowedBanknoteSize;
+    private Card? m_insertedCard;
+    private List<MoneyTray> m_moneyTrays;
+
     public AtmController(IAccountService accountService)
     {
-        m_allowedBanknoteSize = new SortedSet<ulong>()
+        m_allowedBanknoteSize = new SortedSet<ulong>
         {
             10, 50, 100, 200, 500, 1000, 2000, 5000
         };
         m_moneyTrays = new List<MoneyTray>();
-        foreach (var banknoteSize in m_allowedBanknoteSize)
-        {
-            m_moneyTrays.Add(new MoneyTray(banknoteSize, 10, 15));
-        }
+        foreach (var banknoteSize in m_allowedBanknoteSize) m_moneyTrays.Add(new MoneyTray(banknoteSize, 10, 15));
 
         m_accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         m_insertedCard = null;
@@ -25,17 +28,14 @@ public class AtmController
 
     public void InsertCard(Card card)
     {
-        if (m_insertedCard is not null)
-        {
-            throw new ArgumentException("Card already inserted");
-        }
+        if (m_insertedCard is not null) throw new ArgumentException("Card already inserted");
 
         m_insertedCard = card;
     }
 
     public Card? ExtractCard()
     {
-        Card? card = m_insertedCard;
+        var card = m_insertedCard;
         m_insertedCard = null;
         return card;
     }
@@ -70,10 +70,4 @@ public class AtmController
 
         return new CashTransactionService(m_account, m_accountService);
     }
-
-    private IAccount? m_account;
-    private IAccountService m_accountService;
-    private Card? m_insertedCard;
-    private SortedSet<ulong> m_allowedBanknoteSize;
-    private List<MoneyTray> m_moneyTrays;
 }

@@ -5,6 +5,9 @@ namespace SecondTestTask.Models.Services;
 
 public class CashTransactionService
 {
+    private IAccount m_account;
+    private IAccountService m_accountService;
+
     public CashTransactionService(IAccount account, IAccountService accountService)
     {
         m_account = account ?? throw new ArgumentNullException(nameof(account));
@@ -54,8 +57,7 @@ public class CashTransactionService
     }
 
     public decimal Balance()
-        => m_account.GetBalance();
-
-    private IAccount m_account;
-    private IAccountService m_accountService;
+    {
+        return m_account.GetBalance();
+    }
 }

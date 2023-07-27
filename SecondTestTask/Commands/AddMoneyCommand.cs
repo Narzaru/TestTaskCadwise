@@ -6,6 +6,11 @@ namespace SecondTestTask.Commands;
 
 public class AddMoneyCommand : CommandBase
 {
+    private AtmController m_atm;
+    private NavigationService m_toInvalidOperation;
+    private NavigationService m_toOperationsMenu;
+    private DepositViewModel m_vm;
+
     public AddMoneyCommand(DepositViewModel vm, AtmController atm, NavigationService navigateToOperationsMenu,
         NavigationService toInvalidOperation)
     {
@@ -26,6 +31,7 @@ public class AddMoneyCommand : CommandBase
                 m_atm.ExtractCard();
                 return;
             }
+
             m_toOperationsMenu.Navigate();
         }
         catch
@@ -34,9 +40,4 @@ public class AddMoneyCommand : CommandBase
             m_atm.ExtractCard();
         }
     }
-
-    private AtmController m_atm;
-    private DepositViewModel m_vm;
-    private NavigationService m_toInvalidOperation;
-    private NavigationService m_toOperationsMenu;
 }

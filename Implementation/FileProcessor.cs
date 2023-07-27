@@ -4,6 +4,9 @@ namespace Implementation;
 
 public class FileProcessor
 {
+    private readonly IPiecewiseReader[] _readers;
+    private readonly IPiecewiseTextProcessor[] _textProcessors;
+
     public FileProcessor(
         IEnumerable<IPiecewiseReader> readers,
         IEnumerable<IPiecewiseTextWrite> writers,
@@ -16,23 +19,15 @@ public class FileProcessor
     public async Task Run()
     {
         foreach (var reader in _readers)
-        {
             await Task.Run(() =>
             {
                 while (!reader.IsEndOfRead())
                 {
                     var chunk = reader.ReadNextChunk();
-                    foreach (var textProcessor in _textProcessors)
-                    {
-                        chunk = textProcessor.ProcessChunk(chunk);
-                    }
+                    foreach (var textProcessor in _textProcessors) chunk = textProcessor.ProcessChunk(chunk);
 
                     Console.WriteLine(chunk);
                 }
             });
-        }
     }
-
-    private readonly IPiecewiseReader[] _readers;
-    private readonly IPiecewiseTextProcessor[] _textProcessors;
 }

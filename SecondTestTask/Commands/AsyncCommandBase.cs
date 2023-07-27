@@ -12,9 +12,15 @@ public abstract class AsyncCommandBase : IAsyncCommand
 
     public abstract Task ExecuteAsync(object? parameter);
 
-    public virtual bool CanExecute(object? parameter) => true;
+    public virtual bool CanExecute(object? parameter)
+    {
+        return true;
+    }
 
     public event EventHandler? CanExecuteChanged;
 
-    protected void OnCanExecutedChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    protected void OnCanExecutedChanged()
+    {
+        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
 }

@@ -1,14 +1,14 @@
-﻿<Window x:Class="TestTask.Views.MainWindow"
+﻿<Window x:Class="Ui.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:TestTask.ViewModels"
+        xmlns:viewModels="clr-namespace:Ui.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="300">
 
     <Window.DataContext>
-        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+        <viewModels:MainWindowViewModel />
     </Window.DataContext>
 
     <Window.MinWidth>400</Window.MinWidth>
@@ -20,7 +20,7 @@
             <ItemsControl ItemsSource="{Binding Files}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}"></TextBlock>
+                        <TextBlock Text="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -28,11 +28,10 @@
             <Button Command="{Binding OpenOutputDirectoryCommand}">Select output folder...</Button>
             <StackPanel Orientation="Horizontal">
                 <Label>Output folder: </Label>
-                <Label Content="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}"></Label>
+                <Label Content="{Binding OutputDirectory, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
             <TextBox MinWidth="{Binding ElementName=OpenFileStackPanel, Path=ActualWidth}"
-                     PreviewTextInput="UIElement_OnPreviewTextInput" Text="{Binding MaxWordLength}">
-            </TextBox>
+                     PreviewTextInput="UIElement_OnPreviewTextInput" Text="{Binding MaxWordLength}" />
             <CheckBox IsChecked="{Binding RemoveDelimiters}">remove delimiters from file</CheckBox>
             <Button Command="{Binding ProcessFilesCommand}">Process</Button>
         </StackPanel>

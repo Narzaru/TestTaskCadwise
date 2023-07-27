@@ -8,13 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Implementation\Implementation.csproj" />
+        <ProjectReference Include="..\Implementation\Implementation.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="TestFile.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Update="TestFile.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

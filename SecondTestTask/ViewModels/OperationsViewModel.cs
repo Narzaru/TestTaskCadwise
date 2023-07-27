@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 using SecondTestTask.Commands;
 using SecondTestTask.Models.Atm;
-using SecondTestTask.Navigation;
 using SecondTestTask.Services;
 
 namespace SecondTestTask.ViewModels;
