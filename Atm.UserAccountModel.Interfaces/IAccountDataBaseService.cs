@@ -4,6 +4,6 @@ namespace Atm.UserAccountModel.Interfaces;
 
 public interface IAccountDataBaseService
 {
-    bool TryAuthenticate(ulong uid, string pinCode, out BankAccountBase? account);
+    bool TryAuthenticate(ulong bankCardUid, string pinCode, out BankAccountBase? account);
     bool TryUpdateAccount(BankAccountBase account);
 }

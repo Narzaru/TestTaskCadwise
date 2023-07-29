@@ -1,9 +1,11 @@
 ﻿using System.Windows.Input;
+using Atm.AtmModel.Implementation;
+using Atm.WpfUi.Commands;
 using SecondTestTask.Commands;
-using SecondTestTask.Models.Atm;
 using SecondTestTask.Services;
+using SecondTestTask.ViewModels;
 
-namespace SecondTestTask.ViewModels;
+namespace Atm.WpfUi.ViewModels;
 
 public class WithdrawViewModel : ViewModelBase
 {

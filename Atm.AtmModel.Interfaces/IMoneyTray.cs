@@ -4,9 +4,9 @@ public interface IMoneyTray
 {
     public decimal BanknoteDenomination { get; }
 
-    public decimal NumberOfBanknotes { get; }
+    public int NumberOfBanknotes { get; }
 
-    public decimal NumberOfBanknotesLimit { get; }
+    public int NumberOfBanknotesLimit { get; }
 
     public void IncreaseNumberOfBanknotes(int amount);
 

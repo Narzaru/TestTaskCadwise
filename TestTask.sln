@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atm.AtmModel.Services", "At
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atm.AtmModel.Interfaces", "Atm.AtmModel.Interfaces\Atm.AtmModel.Interfaces.csproj", "{F84E9A35-B802-41BC-9836-9875509BB844}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atm.AtmModel.Tests", "Atm.AtmModel.Tests\Atm.AtmModel.Tests.csproj", "{A7AB085D-BCFB-4F04-B011-9A6568645232}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{F84E9A35-B802-41BC-9836-9875509BB844}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F84E9A35-B802-41BC-9836-9875509BB844}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F84E9A35-B802-41BC-9836-9875509BB844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7AB085D-BCFB-4F04-B011-9A6568645232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7AB085D-BCFB-4F04-B011-9A6568645232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7AB085D-BCFB-4F04-B011-9A6568645232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7AB085D-BCFB-4F04-B011-9A6568645232}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,5 +133,6 @@ Global
 		{34C631CC-907D-47F9-BD54-01B546C3CF18} = {5DA40BB7-4C43-4337-94D0-2B86DD303E1C}
 		{33400948-BAD9-4118-BF52-99D4614F4364} = {A9B5EEA3-48C6-49A2-9194-8C662B05A3E0}
 		{F84E9A35-B802-41BC-9836-9875509BB844} = {A9B5EEA3-48C6-49A2-9194-8C662B05A3E0}
+		{A7AB085D-BCFB-4F04-B011-9A6568645232} = {A9B5EEA3-48C6-49A2-9194-8C662B05A3E0}
 	EndGlobalSection
 EndGlobal

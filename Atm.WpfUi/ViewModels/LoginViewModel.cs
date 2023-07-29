@@ -1,9 +1,10 @@
 ﻿using System.Windows.Input;
-using SecondTestTask.Commands;
-using SecondTestTask.Models.Atm;
+using Atm.AtmModel.Implementation;
+using Atm.WpfUi.Commands;
 using SecondTestTask.Services;
+using SecondTestTask.ViewModels;
 
-namespace SecondTestTask.ViewModels;
+namespace Atm.WpfUi.ViewModels;
 
 public class LoginViewModel : ViewModelBase
 {

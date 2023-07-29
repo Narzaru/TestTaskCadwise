@@ -1,10 +1,11 @@
 ﻿using Atm.AtmModel.Interfaces;
+using Atm.AtmModel.Services;
 
 namespace Atm.AtmModel.Implementation;
 
 public class MoneyTray : IMoneyTray
 {
-    public MoneyTray(decimal banknoteDenomination, decimal numberOfBanknotes, decimal numberOfBanknotesLimit)
+    public MoneyTray(decimal banknoteDenomination, int numberOfBanknotes, int numberOfBanknotesLimit)
     {
         BanknoteDenomination = banknoteDenomination;
         NumberOfBanknotes = numberOfBanknotes;
@@ -12,22 +13,22 @@ public class MoneyTray : IMoneyTray
     }
 
     public decimal BanknoteDenomination { get; private set; }
-    public decimal NumberOfBanknotes { get; private set; }
-    public decimal NumberOfBanknotesLimit { get; private set; }
+    public int NumberOfBanknotes { get; private set; }
+    public int NumberOfBanknotesLimit { get; private set; }
 
-    public void IncreaseNumberOfBanknotes(int amount)
+    public void IncreaseNumberOfBanknotes(int count)
     {
-        if (NumberOfBanknotes + amount > NumberOfBanknotesLimit)
+        if (NumberOfBanknotes + count > NumberOfBanknotesLimit)
             throw new InvalidOperationException("Banknote limit exceeded");
 
-        NumberOfBanknotes += amount;
+        NumberOfBanknotes += count;
     }
 
-    public void DecreaseNumberOfBanknotes(int amount)
+    public void DecreaseNumberOfBanknotes(int count)
     {
-        if (NumberOfBanknotes - amount < 0)
+        if (NumberOfBanknotes - count < 0)
             throw new InvalidOperationException("Banknote limit exceeded");
 
-        NumberOfBanknotes -= amount;
+        NumberOfBanknotes -= count;
     }
 }

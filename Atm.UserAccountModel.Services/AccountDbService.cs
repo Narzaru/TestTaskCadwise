@@ -26,9 +26,9 @@ public class AccountDbService : IAccountDataBaseService
         };
     }
 
-    public bool TryAuthenticate(ulong uid, string pinCode, out BankAccountBase? account)
+    public bool TryAuthenticate(ulong bankCardUid, string pinCode, out BankAccountBase? account)
     {
-        account = Authenticate(uid, pinCode);
+        account = Authenticate(bankCardUid, pinCode);
         return account is not null;
     }
 

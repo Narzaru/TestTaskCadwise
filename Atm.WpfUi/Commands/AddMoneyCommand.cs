@@ -1,8 +1,10 @@
-﻿using SecondTestTask.Models.Atm;
+﻿using Atm.AtmModel.Implementation;
+using Atm.WpfUi.ViewModels;
+using SecondTestTask.Commands;
 using SecondTestTask.Services;
 using SecondTestTask.ViewModels;
 
-namespace SecondTestTask.Commands;
+namespace Atm.WpfUi.Commands;
 
 public class AddMoneyCommand : CommandBase
 {
@@ -22,22 +24,22 @@ public class AddMoneyCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        var cashService = _atm.GetCashTransactionService();
-        try
-        {
-            if (!cashService.TryDeposit(decimal.Parse(_vm.AmountOfMoney)))
-            {
-                _toInvalidOperation.Navigate();
-                _atm.ExtractCard();
-                return;
-            }
-
-            _toOperationsMenu.Navigate();
-        }
-        catch
-        {
-            _toInvalidOperation.Navigate();
-            _atm.ExtractCard();
-        }
+        // var cashService = _atm.GetCashTransactionService();
+        // try
+        // {
+        //     if (!cashService.TryDeposit(decimal.Parse(_vm.AmountOfMoney)))
+        //     {
+        //         _toInvalidOperation.Navigate();
+        //         _atm.ExtractCard();
+        //         return;
+        //     }
+        //
+        //     _toOperationsMenu.Navigate();
+        // }
+        // catch
+        // {
+        //     _toInvalidOperation.Navigate();
+        //     _atm.ExtractCard();
+        // }
     }
 }

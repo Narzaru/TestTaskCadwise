@@ -5,28 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:SecondTestTask.ViewModels"
         xmlns:vs="clr-namespace:SecondTestTask.Views"
+        xmlns:viewModels="clr-namespace:Atm.WpfUi.ViewModels"
         mc:Ignorable="d"
         Title="Atm.WpfUi" Height="400" Width="400"
         MinWidth="300" MinHeight="300">
 
     <Grid VerticalAlignment="Top">
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
                 <vs:LoginView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:OperationsViewModel}">
+            <DataTemplate DataType="{x:Type viewModels:OperationsViewModel}">
                 <vs:OperationsView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:InvalidOperationViewModel}">
                 <vs:InvalidOperationView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:BalanceViewModel}">
+            <DataTemplate DataType="{x:Type viewModels:BalanceViewModel}">
                 <vs:BalanceView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:DepositViewModel}">
+            <DataTemplate DataType="{x:Type viewModels:DepositViewModel}">
                 <vs:DepositView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:WithdrawViewModel}">
+            <DataTemplate DataType="{x:Type viewModels:WithdrawViewModel}">
                 <vs:WithdrawView />
             </DataTemplate>
         </Grid.Resources>

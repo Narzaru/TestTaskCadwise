@@ -1,8 +1,10 @@
-﻿using SecondTestTask.Models.Atm;
+﻿using Atm.AtmModel.Implementation;
+using Atm.WpfUi.ViewModels;
+using SecondTestTask.Commands;
 using SecondTestTask.Services;
 using SecondTestTask.ViewModels;
 
-namespace SecondTestTask.Commands;
+namespace Atm.WpfUi.Commands;
 
 public class BackToLoginViewCommand : CommandBase
 {

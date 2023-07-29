@@ -1,8 +1,11 @@
-﻿using SecondTestTask.Models.Atm;
+﻿using Atm.AtmModel.Implementation;
+using Atm.UserAccountModel.Implementation;
+using Atm.WpfUi.ViewModels;
+using SecondTestTask.Commands;
 using SecondTestTask.Services;
 using SecondTestTask.ViewModels;
 
-namespace SecondTestTask.Commands;
+namespace Atm.WpfUi.Commands;
 
 public class ValidateCardCommand : CommandBase
 {
@@ -25,7 +28,7 @@ public class ValidateCardCommand : CommandBase
     {
         try
         {
-            _atm.InsertCard(new Card(ulong.Parse(_vm.CardId)));
+            _atm.InsertCard(new BankCardBase(ulong.Parse(_vm.CardId)));
         }
         catch
         {

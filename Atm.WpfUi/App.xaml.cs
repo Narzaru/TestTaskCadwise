@@ -1,12 +1,13 @@
 ﻿using System.Windows;
-using SecondTestTask.Models.Atm;
-using SecondTestTask.Models.Services;
+using Atm.AtmModel.Implementation;
+using Atm.UserAccountModel.Services;
+using Atm.WpfUi.ViewModels;
 using SecondTestTask.Navigation;
 using SecondTestTask.Services;
 using SecondTestTask.ViewModels;
 using SecondTestTask.Views;
 
-namespace SecondTestTask;
+namespace Atm.WpfUi;
 
 public partial class App : Application
 {
@@ -15,7 +16,7 @@ public partial class App : Application
 
     public App()
     {
-        _atmController = new AtmController(new AccountService());
+        _atmController = new AtmController(new AccountDbService());
         _navigationStore = new NavigationStore();
     }
 
