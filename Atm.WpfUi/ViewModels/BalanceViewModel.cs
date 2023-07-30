@@ -10,7 +10,7 @@ public class BalanceViewModel : ViewModelBase
 {
     public BalanceViewModel(AtmController atm, NavigationService navigateToOperations)
     {
-        BackCommand = new BackToOperationsMenuFromBalanceView(navigateToOperations);
+        BackCommand = new BalanceViewBackToOperationsMenu(navigateToOperations);
         Balance = atm.CheckBalance().ToString(CultureInfo.InvariantCulture);
     }
 

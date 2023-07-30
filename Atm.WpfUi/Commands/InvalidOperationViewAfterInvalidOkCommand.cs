@@ -2,11 +2,11 @@
 
 namespace Atm.WpfUi.Commands;
 
-public class AfterInvalidOkCommand : CommandBase
+public class InvalidOperationViewAfterInvalidOkCommand : CommandBase
 {
     private NavigationService _navigationService;
 
-    public AfterInvalidOkCommand(NavigationService navigationService)
+    public InvalidOperationViewAfterInvalidOkCommand(NavigationService navigationService)
     {
         _navigationService = navigationService;
     }

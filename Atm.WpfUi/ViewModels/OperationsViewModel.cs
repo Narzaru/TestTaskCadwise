@@ -13,7 +13,7 @@ public class OperationsViewModel : ViewModelBase
         NavigationService navigateToDeposit,
         NavigationService navigateToWithdraw)
     {
-        NavigateToLogInMenu = new BackToLoginViewCommand(this, atm, navigateToLogin);
+        NavigateToLogInMenu = new OperationsViewBackToLoginViewCommand(this, atm, navigateToLogin);
         CheckBalanceCommand = new NavigateCommand(navigateToBalance);
         NavigateToDeposit = new NavigateCommand(navigateToDeposit);
         WithdrawCommand = new NavigateCommand(navigateToWithdraw);

@@ -9,7 +9,7 @@ public class LoginViewModel : ViewModelBase
 {
     public LoginViewModel(AtmController atm, NavigationService navigateToOperation, NavigationService navigateToError)
     {
-        NavigateToOperationsMenu = new ValidateCardCommand(this, atm, navigateToOperation, navigateToError);
+        NavigateToOperationsMenu = new LoginViewValidateCardCommand(this, atm, navigateToOperation, navigateToError);
     }
 
     public string CardId { get; set; } = string.Empty;

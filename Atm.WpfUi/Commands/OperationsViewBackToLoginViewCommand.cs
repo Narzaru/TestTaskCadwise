@@ -4,14 +4,14 @@ using Atm.WpfUi.ViewModels;
 
 namespace Atm.WpfUi.Commands;
 
-public class BackToLoginViewCommand : CommandBase
+public class OperationsViewBackToLoginViewCommand : CommandBase
 {
     private AtmController _atm;
     private NavigationService _navigationService;
 
     private OperationsViewModel _vm;
 
-    public BackToLoginViewCommand(OperationsViewModel vm, AtmController atm, NavigationService navigationService)
+    public OperationsViewBackToLoginViewCommand(OperationsViewModel vm, AtmController atm, NavigationService navigationService)
     {
         _vm = vm;
         _atm = atm;

@@ -2,11 +2,11 @@
 
 namespace Atm.WpfUi.Commands;
 
-public class BackToOperationsMenuFromBalanceView : CommandBase
+public class BalanceViewBackToOperationsMenu : CommandBase
 {
     private NavigationService _navigationService;
 
-    public BackToOperationsMenuFromBalanceView(NavigationService navigationService)
+    public BalanceViewBackToOperationsMenu(NavigationService navigationService)
     {
         _navigationService = navigationService;
     }

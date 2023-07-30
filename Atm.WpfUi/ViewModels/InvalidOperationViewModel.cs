@@ -8,7 +8,7 @@ public class InvalidOperationViewModel : ViewModelBase
 {
     public InvalidOperationViewModel(NavigationService toLogin)
     {
-        BackCommand = new AfterInvalidOkCommand(toLogin);
+        BackCommand = new InvalidOperationViewAfterInvalidOkCommand(toLogin);
     }
 
     public ICommand BackCommand { get; set; }

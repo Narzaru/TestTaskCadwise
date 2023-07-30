@@ -5,7 +5,7 @@ using Atm.WpfUi.ViewModels;
 
 namespace Atm.WpfUi.Commands;
 
-public class ValidateCardCommand : CommandBase
+public class LoginViewValidateCardCommand : CommandBase
 {
     private AtmController _atm;
     private NavigationService _navigateToError;
@@ -13,7 +13,7 @@ public class ValidateCardCommand : CommandBase
 
     private LoginViewModel _vm;
 
-    public ValidateCardCommand(LoginViewModel vm, AtmController atm, NavigationService navigateToOperation,
+    public LoginViewValidateCardCommand(LoginViewModel vm, AtmController atm, NavigationService navigateToOperation,
         NavigationService navigateToError)
     {
         _vm = vm;
