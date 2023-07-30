@@ -35,6 +35,12 @@ public class WordRemover : IPiecewiseTextProcessor
                 word.Clear();
             }
 
+        if (word.Length >= _minWordLength)
+        {
+            result.Append(word);
+            word.Clear();
+        }
+
         _trailWord = word.ToString();
         return result.ToString();
     }
