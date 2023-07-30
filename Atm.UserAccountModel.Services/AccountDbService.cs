@@ -42,7 +42,10 @@ public class AccountDbService : IAccountDataBaseService
 
     public BankAccountBase? Authenticate(ulong uid, string inputCode)
     {
-        return VerifyAccountConsistency(uid) ? new BankAccountBase(uid, new Balance(_balance[uid])) : null;
+        var account = VerifyAccountConsistency(uid) ? new BankAccountBase(uid, new Balance(_balance[uid])) : null;
+        if (account is null || _accounts[account.Uid] != inputCode) account = null;
+
+        return account;
     }
 
     public bool VerifyAccountConsistency(ulong accountUid)
