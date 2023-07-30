@@ -3,14 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vms="clr-namespace:Atm.WpfUi.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical"
+                d:DataContext="{d:DesignInstance Type=vms:DepositViewModel, IsDesignTimeCreatable=True}">
         <Label>Deposit section</Label>
         <Label>Input amount of money:</Label>
-        <TextBox Text="{Binding AmountOfMoney}" />
+        <DockPanel>
+            <Label Content="Denomination" />
+            <ComboBox ItemsSource="{Binding ComboBoxDataDenomination}" SelectedItem="{Binding SelectedDenomination}" />
+            <Label Content="quantity" />
+            <TextBox Text="{Binding QuantityOfDenomination}"></TextBox>
+        </DockPanel>
+        <Button Command="{Binding AddToListCommand}">AddToList...</Button>
         <Button Command="{Binding ExecuteOperationCommand}">Continue</Button>
         <Button Command="{Binding BackToOperationsCommand}">Back...</Button>
+        <ScrollViewer MaxHeight="150">
+            <ListView ItemsSource="{Binding InsertedMoneys}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Key}">Denomination</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Value}">Quantity</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
     </StackPanel>
 </UserControl>

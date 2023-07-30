@@ -10,7 +10,7 @@ public class AtmController
     private BankCardBase? _insertedCard;
     private BankAccountBase? _account;
     private IAccountDataBaseService _accountDbService;
-    private IEnumerable<MoneyTray> _moneyTrays;
+    private List<MoneyTray> _moneyTrays;
     private CashTransactionService? _cashTransactionService;
 
     public AtmController(
@@ -22,8 +22,8 @@ public class AtmController
         _insertedCard = null;
 
         _moneyTrays = new[] { 50, 100, 200, 500, 1000, 2000, 5000 }
-            .Select(banknoteSize =>
-                new MoneyTray(banknoteSize, numberOfBanknotes, numberOfBanknotesLimit));
+            .Select(banknoteSize => new MoneyTray(banknoteSize, numberOfBanknotes, numberOfBanknotesLimit))
+            .ToList();
     }
 
     public void InsertCard(BankCardBase card)
@@ -72,12 +72,17 @@ public class AtmController
         var moneyTrayLogic = new MoneyTrayLogicService(_moneyTrays);
         if (moneyTrayLogic.TryCreateACashDepositOffer(moneyStacksCopy, out var acceptedMoney))
         {
-            var offerMoneyStacks = acceptedMoney as MoneyStack[] ?? acceptedMoney.ToArray();
+            var offerMoneyStacks = acceptedMoney.ToList();
 
-            foreach (var mt in _moneyTrays)
+            foreach (var moneys in offerMoneyStacks)
             {
-                var monetStack = offerMoneyStacks.FirstOrDefault(ms => ms.Denomination == mt.BanknoteDenomination);
-                mt.IncreaseNumberOfBanknotes(monetStack.Quantity);
+                var moneyTray = _moneyTrays
+                    .FirstOrDefault(moneyTray => moneyTray.BanknoteDenomination == moneys.Denomination);
+
+                if (moneyTray is not null)
+                {
+                    moneyTray.IncreaseNumberOfBanknotes(moneys.Quantity);
+                }
             }
 
             _cashTransactionService.Deposit(offerMoneyStacks.Sum(moneyStack =>
@@ -140,5 +145,10 @@ public class AtmController
                 "Attempt to check balance without authorization");
 
         return _cashTransactionService.Balance();
+    }
+
+    public IEnumerable<decimal> GetTraysDenomination()
+    {
+        return _moneyTrays.Select(tray => tray.BanknoteDenomination);
     }
 }
