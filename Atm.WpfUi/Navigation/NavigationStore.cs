@@ -1,7 +1,7 @@
 ﻿using System;
-using SecondTestTask.ViewModels;
+using Atm.WpfUi.ViewModels;
 
-namespace SecondTestTask.Navigation;
+namespace Atm.WpfUi.Navigation;
 
 public class NavigationStore
 {
@@ -23,4 +23,6 @@ public class NavigationStore
     {
         CurrentViewModelChanged?.Invoke();
     }
+
+    public MessageBus MessageBus { get; set; } = new();
 }

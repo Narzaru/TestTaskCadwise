@@ -1,6 +1,6 @@
-﻿using SecondTestTask.Services;
+﻿using Atm.WpfUi.Services;
 
-namespace SecondTestTask.Commands;
+namespace Atm.WpfUi.Commands;
 
 public class ShowLoginErrorCommand : CommandBase
 {

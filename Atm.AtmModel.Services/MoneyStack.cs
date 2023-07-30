@@ -2,6 +2,6 @@
 
 public struct MoneyStack
 {
-    public decimal Denomination;
-    public int Quantity;
+    public decimal Denomination { get; set; }
+    public int Quantity { get; set; }
 }

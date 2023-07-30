@@ -8,12 +8,14 @@ namespace Atm.AtmModel.Services;
 public class MoneyTrayLogicService
 {
     private IMoneyTray[] _moneyTrays;
+    private IMoneyTray[] _copyMoneyTrays;
     private decimal _amount;
 
     // TODO(narzaru) class can be rewritten to pattern strategy for different withdrawal offers
     public MoneyTrayLogicService(IEnumerable<IMoneyTray> moneyTrays)
     {
         _moneyTrays = moneyTrays.ToArray();
+        _copyMoneyTrays = _moneyTrays.ToArray();
     }
 
     /// <summary>
@@ -70,6 +72,7 @@ public class MoneyTrayLogicService
             return false;
 
         _amount = requiredAmount;
+        _copyMoneyTrays = _moneyTrays.ToArray();
         var moneyStacks = new List<MoneyStack>();
         moneyStacks.Add(GiveMainDenomination(denomination));
         moneyStacks.AddRange(GiveApproximatedDomination());
@@ -81,11 +84,13 @@ public class MoneyTrayLogicService
 
     private MoneyStack GiveMainDenomination(decimal denomination)
     {
-        var moneyTray = _moneyTrays.FindByDenomination(denomination);
+        var moneyTray = _copyMoneyTrays.FindByDenomination(denomination);
+        if (moneyTray is null) return new MoneyStack { Denomination = 0, Quantity = 0 };
 
         var targetNumberOfBanknotes = decimal.ToInt32(Math.Floor(_amount / moneyTray!.BanknoteDenomination));
         var realNumberOfBanknote = Math.Min(targetNumberOfBanknotes, moneyTray.NumberOfBanknotes);
         _amount -= moneyTray.BanknoteDenomination * realNumberOfBanknote;
+        moneyTray.DecreaseNumberOfBanknotes(realNumberOfBanknote);
 
         return new MoneyStack { Denomination = denomination, Quantity = realNumberOfBanknote };
     }
@@ -93,7 +98,7 @@ public class MoneyTrayLogicService
     private IEnumerable<MoneyStack> GiveApproximatedDomination()
     {
         return
-            from moneyTray in _moneyTrays
+            from moneyTray in _copyMoneyTrays
             where moneyTray.NumberOfBanknotes > 0 && moneyTray.BanknoteDenomination <= _amount
             let moneyStack = GiveMainDenomination(moneyTray.BanknoteDenomination)
             where moneyStack.Quantity > 0

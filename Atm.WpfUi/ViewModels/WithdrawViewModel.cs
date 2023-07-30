@@ -1,23 +1,25 @@
 ﻿using System.Windows.Input;
 using Atm.AtmModel.Implementation;
 using Atm.WpfUi.Commands;
-using SecondTestTask.Commands;
-using SecondTestTask.Services;
-using SecondTestTask.ViewModels;
+using Atm.WpfUi.Services;
+using Atm.WpfUi.Views;
 
 namespace Atm.WpfUi.ViewModels;
 
 public class WithdrawViewModel : ViewModelBase
 {
-    public WithdrawViewModel(AtmController atm, NavigationService toOperationsMenu,
-        NavigationService toInvalidOperation)
+    public WithdrawViewModel(
+        AtmController atm,
+        NavigationService toOperationsMenu,
+        NavigationService toDenominationSelectionMenu,
+        NavigationService toOperationErrorMenu)
     {
         BackToOperationsCommand = new NavigateCommand(toOperationsMenu);
-        ExecuteOperationCommand = new GetMoneyCommand(this, atm, toOperationsMenu, toInvalidOperation);
+        ContinueCommand = new WithdrawToDenominationSelectionCommand(this, atm, toDenominationSelectionMenu, toOperationErrorMenu);
     }
 
-    public string AmountOfMoney { get; set; } = string.Empty;
+    public decimal AmountOfMoney { get; set; }
 
     public ICommand BackToOperationsCommand { get; set; }
-    public ICommand ExecuteOperationCommand { get; set; }
+    public ICommand ContinueCommand { get; set; }
 }

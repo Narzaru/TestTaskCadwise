@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace SecondTestTask.Views;
+namespace Atm.WpfUi.Views;
 
 public partial class WithdrawView : UserControl
 {

@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
-using SecondTestTask.Commands;
-using SecondTestTask.Services;
+using Atm.WpfUi.Commands;
+using Atm.WpfUi.Services;
 
-namespace SecondTestTask.ViewModels;
+namespace Atm.WpfUi.ViewModels;
 
 public class InvalidOperationViewModel : ViewModelBase
 {

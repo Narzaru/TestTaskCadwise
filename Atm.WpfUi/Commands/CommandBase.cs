@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace SecondTestTask.Commands;
+namespace Atm.WpfUi.Commands;
 
 public abstract class CommandBase : ICommand
 {

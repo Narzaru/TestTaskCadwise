@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SecondTestTask.Commands;
+namespace Atm.WpfUi.Commands;
 
 public interface IAsyncCommand : ICommand
 {

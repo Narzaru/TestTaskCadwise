@@ -2,9 +2,9 @@
 
 namespace Atm.WpfUi.Views;
 
-public partial class BalanceView : UserControl
+public partial class DenominationSelectionView : UserControl
 {
-    public BalanceView()
+    public DenominationSelectionView()
     {
         InitializeComponent();
     }

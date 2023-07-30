@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SecondTestTask.Views;
+namespace Atm.WpfUi.Views;
 
 public partial class MainWindow : Window
 {

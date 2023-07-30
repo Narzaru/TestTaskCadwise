@@ -2,9 +2,8 @@
 using System.Linq;
 using Atm.AtmModel.Implementation;
 using Atm.AtmModel.Services;
+using Atm.WpfUi.Services;
 using Atm.WpfUi.ViewModels;
-using SecondTestTask.Commands;
-using SecondTestTask.Services;
 
 namespace Atm.WpfUi.Commands;
 
@@ -36,10 +35,7 @@ public class DepositViewAddMoneyCommand : CommandBase
         if (notAccepted.Any())
         {
             var moneys = notAccepted.Select(ms => new KeyValuePair<decimal, int>(ms.Denomination, ms.Quantity));
-            foreach (var money in moneys)
-            {
-                _vm.InsertedMoneys.Add(money);
-            }
+            foreach (var money in moneys) _vm.InsertedMoneys.Add(money);
         }
     }
 }

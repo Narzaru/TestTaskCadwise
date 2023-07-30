@@ -1,8 +1,8 @@
 ﻿using System;
-using SecondTestTask.Navigation;
-using SecondTestTask.ViewModels;
+using Atm.WpfUi.Navigation;
+using Atm.WpfUi.ViewModels;
 
-namespace SecondTestTask.Services;
+namespace Atm.WpfUi.Services;
 
 public class NavigationService
 {
@@ -19,4 +19,6 @@ public class NavigationService
     {
         _navigationStore.CurrentViewModel = _createViewModel();
     }
+
+    public MessageBus MessageBus => _navigationStore.MessageBus;
 }

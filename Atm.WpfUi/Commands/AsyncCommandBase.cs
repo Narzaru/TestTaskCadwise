@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace SecondTestTask.Commands;
+namespace Atm.WpfUi.Commands;
 
 public abstract class AsyncCommandBase : IAsyncCommand
 {

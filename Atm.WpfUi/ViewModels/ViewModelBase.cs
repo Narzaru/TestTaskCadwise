@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SecondTestTask.ViewModels;
+namespace Atm.WpfUi.ViewModels;
 
 public class ViewModelBase : INotifyPropertyChanged
 {

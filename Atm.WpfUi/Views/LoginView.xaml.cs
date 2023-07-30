@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SecondTestTask.Views;
+namespace Atm.WpfUi.Views;
 
 public partial class LoginView : UserControl
 {

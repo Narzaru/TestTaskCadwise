@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 using Atm.AtmModel.Implementation;
 using Atm.UserAccountModel.Services;
+using Atm.WpfUi.Navigation;
+using Atm.WpfUi.Services;
 using Atm.WpfUi.ViewModels;
-using SecondTestTask.Navigation;
-using SecondTestTask.Services;
-using SecondTestTask.ViewModels;
-using SecondTestTask.Views;
+using Atm.WpfUi.Views;
 
 namespace Atm.WpfUi;
 
@@ -66,10 +65,19 @@ public partial class App : Application
             new NavigationService(_navigationStore, MakeInvalidOperationView));
     }
 
+    private DenominationSelectionViewModel MakeDenominationSelectionViewModel()
+    {
+        return new DenominationSelectionViewModel(_atmController,
+            new NavigationService(_navigationStore, MakeOperationsViewModel),
+            new NavigationService(_navigationStore, MakeWithdrawViewModel),
+            new NavigationService(_navigationStore, MakeInvalidOperationView));
+    }
+
     private WithdrawViewModel MakeWithdrawViewModel()
     {
         return new WithdrawViewModel(_atmController,
             new NavigationService(_navigationStore, MakeOperationsViewModel),
+            new NavigationService(_navigationStore, MakeDenominationSelectionViewModel),
             new NavigationService(_navigationStore, MakeInvalidOperationView));
     }
 }

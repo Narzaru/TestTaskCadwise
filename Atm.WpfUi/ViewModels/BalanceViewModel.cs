@@ -1,9 +1,8 @@
 ﻿using System.Globalization;
 using System.Windows.Input;
 using Atm.AtmModel.Implementation;
-using SecondTestTask.Commands;
-using SecondTestTask.Services;
-using SecondTestTask.ViewModels;
+using Atm.WpfUi.Commands;
+using Atm.WpfUi.Services;
 
 namespace Atm.WpfUi.ViewModels;
 

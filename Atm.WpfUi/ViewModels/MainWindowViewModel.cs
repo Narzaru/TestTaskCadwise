@@ -1,6 +1,6 @@
-﻿using SecondTestTask.Navigation;
+﻿using Atm.WpfUi.Navigation;
 
-namespace SecondTestTask.ViewModels;
+namespace Atm.WpfUi.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
