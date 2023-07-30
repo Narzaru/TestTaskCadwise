@@ -15,7 +15,7 @@ public class MoneyTrayLogicServiceTests
 
     // TODO(narzaru) rename tests
     [Fact]
-    public void _()
+    public void TryCreateACashWithdrawOffer_NormalOfferRequirement_CorrectWithdrawOffer()
     {
         MoneyTrayLogicService moneyTrayLogicService = new(CreateMoneyTrays(2, 10));
 
@@ -31,7 +31,7 @@ public class MoneyTrayLogicServiceTests
     }
 
     [Fact]
-    public void _1()
+    public void TryCreateACashWithdrawOffer_ExtraMoneyInserted_CorrectWithdrawOffer()
     {
         MoneyTrayLogicService moneyTrayLogicService = new(CreateMoneyTrays(9, 10));
 

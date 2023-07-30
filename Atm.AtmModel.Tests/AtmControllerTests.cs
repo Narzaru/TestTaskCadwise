@@ -33,9 +33,8 @@ public class AtmControllerTests
         return dbService.Object;
     }
 
-    // TODO(narzaru) rename
     [Fact]
-    public void _()
+    public void InsertMoneyStacks_NormalMoneyInsert_AllMoneyInserted()
     {
         var atm = new AtmController(GetMockDb(), 29, 30);
         atm.InsertCard(new BankCardBase(0));
@@ -52,7 +51,7 @@ public class AtmControllerTests
     }
 
     [Fact]
-    public void __()
+    public void InsertMoneyStacks_ExtraMoneyInsert_NotAllMoneyInserted()
     {
         var atm = new AtmController(GetMockDb(), 20, 30);
         atm.InsertCard(new BankCardBase(0));
@@ -85,7 +84,7 @@ public class AtmControllerTests
     }
 
     [Fact]
-    public void ___()
+    public void PullMoneyStacks_ExtraMoneyPull_NotAllMoneyPulled()
     {
         var atm = new AtmController(GetMockDb(), 20, 30);
         atm.InsertCard(new BankCardBase(0));
