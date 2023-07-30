@@ -75,9 +75,9 @@ public class AtmControllerTests
 
         var expected = new MoneyStack[]
         {
-            new() { Denomination = 100, Quantity = 190 },
-            new() { Denomination = 50, Quantity = 190 },
-            new() { Denomination = 200, Quantity = 190 }
+            new() { Denomination = 100, Quantity = 200 },
+            new() { Denomination = 50, Quantity = 200 },
+            new() { Denomination = 200, Quantity = 200 }
         };
 
         Assert.Equal(expected, returnedUserMoney);

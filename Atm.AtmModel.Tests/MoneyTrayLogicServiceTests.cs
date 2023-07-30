@@ -13,7 +13,6 @@ public class MoneyTrayLogicServiceTests
                 new MoneyTray(banknoteSize, numberOfBanknotes, numberOfBanknotesLimit));
     }
 
-    // TODO(narzaru) rename tests
     [Fact]
     public void TryCreateACashWithdrawOffer_NormalOfferRequirement_CorrectWithdrawOffer()
     {

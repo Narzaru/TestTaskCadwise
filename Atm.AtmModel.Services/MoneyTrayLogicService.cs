@@ -94,15 +94,16 @@ public class MoneyTrayLogicService
 
     private IEnumerable<MoneyStack> GiveApproximatedDomination()
     {
-        return
+        var moneys =
             from moneyTray in _moneyTrays
             where moneyTray.NumberOfBanknotes > 0 && moneyTray.BanknoteDenomination <= _amount
-            let moneyStack = GiveMainDenomination(moneyTray.BanknoteDenomination)
-            where moneyStack.Quantity > 0
+            orderby moneyTray.BanknoteDenomination descending
             select new MoneyStack
             {
-                Denomination = moneyStack.Denomination,
-                Quantity = moneyStack.Quantity
+                Denomination = moneyTray.BanknoteDenomination,
+                Quantity = moneyTray.NumberOfBanknotes
             };
+
+        return moneys.Select(m => GiveMainDenomination(m.Denomination)).Where(m => m.Quantity > 0);
     }
 }
