@@ -2,38 +2,18 @@
 
 namespace Atm.AtmModel.Services;
 
-public static class MoneyTraysExtension
-{
-    public static decimal MoneyAmount(this IEnumerable<IMoneyTray> moneyTrays)
-    {
-        return moneyTrays.Sum(mt => mt.NumberOfBanknotes * mt.BanknoteDenomination);
-    }
-
-    public static int RemainingPlaces(this IMoneyTray moneyTray)
-    {
-        return moneyTray.NumberOfBanknotesLimit - moneyTray.NumberOfBanknotes;
-    }
-}
-
-public struct MoneyStack
-{
-    public decimal Denomination;
-    public int Quantity;
-}
-
 /// <summary>
-/// Provides logic for withdrawing funds of a certain denomination
+/// Provides logic for withdrawing banknotes of a certain denomination
 /// </summary>
 public class MoneyTrayLogicService
 {
-    private IEnumerable<IMoneyTray> _moneyTrays;
-    private IEnumerable<IMoneyTray> _moneyTraysCopy = null!;
+    private IMoneyTray[] _moneyTrays;
     private decimal _amount;
 
-    // TODO(narzaru) class can be rewritten to pattern strategy
+    // TODO(narzaru) class can be rewritten to pattern strategy for different withdrawal offers
     public MoneyTrayLogicService(IEnumerable<IMoneyTray> moneyTrays)
     {
-        _moneyTrays = moneyTrays;
+        _moneyTrays = moneyTrays.ToArray();
     }
 
     /// <summary>
@@ -52,15 +32,15 @@ public class MoneyTrayLogicService
         IEnumerable<MoneyStack> moneyStacks,
         out IEnumerable<MoneyStack> offerMoneyStacks)
     {
-        var list = new List<MoneyStack>();
-        foreach (var moneyStack in moneyStacks)
-        {
-            var moneyTray = _moneyTrays.FirstOrDefault(mt => mt.BanknoteDenomination == moneyStack.Denomination);
-            if (moneyTray is not null)
-                list.Add(InsertMoneyStack(moneyTray, moneyStack));
-        }
+        var result =
+            from moneyStack in moneyStacks
+            let moneyTray = _moneyTrays.FindByDenomination(moneyStack.Denomination)
+            where moneyTray is not null
+            let allowableQuantity = Math.Min(moneyTray.RemainingPlaces(), moneyStack.Quantity)
+            where allowableQuantity > 0
+            select moneyStack with { Quantity = allowableQuantity };
 
-        offerMoneyStacks = list;
+        offerMoneyStacks = result;
         return offerMoneyStacks.Any();
     }
 
@@ -79,79 +59,48 @@ public class MoneyTrayLogicService
     /// <returns>
     /// If any offer was made return true
     /// </returns>
-    public bool TryCreateACashWithdrawOffer(decimal requiredAmount, decimal denomination,
+    public bool TryCreateACashWithdrawOffer(
+        decimal requiredAmount,
+        decimal denomination,
         out IEnumerable<MoneyStack> possibleWithdraw)
     {
-        _moneyTraysCopy = _moneyTrays.ToArray();
-        _amount = requiredAmount;
         possibleWithdraw = new List<MoneyStack>();
 
-        if (_moneyTraysCopy.MoneyAmount() == 0 || _amount > _moneyTraysCopy.MoneyAmount())
+        if (_moneyTrays.IsNoMoney() || requiredAmount > _moneyTrays.MoneyAmount())
             return false;
 
-        if (_moneyTraysCopy.FirstOrDefault(mt => mt.BanknoteDenomination == denomination) is null)
-            return false;
-
+        _amount = requiredAmount;
         var moneyStacks = new List<MoneyStack>();
         moneyStacks.Add(GiveMainDenomination(denomination));
-        moneyStacks.AddRange(GiveApproximatedDomination(denomination));
+        moneyStacks.AddRange(GiveApproximatedDomination());
 
-        possibleWithdraw = moneyStacks.Where(ms => ms.Quantity > 0);
+        possibleWithdraw = moneyStacks.Where(moneyStack => moneyStack.Quantity > 0);
 
         return possibleWithdraw.Any();
     }
 
     private MoneyStack GiveMainDenomination(decimal denomination)
     {
-        var moneyTray = _moneyTraysCopy.FirstOrDefault(mt => mt.BanknoteDenomination == denomination);
-        var moneyStacks = new MoneyStack
-        {
-            Denomination = denomination,
-            Quantity = 0
-        };
+        var moneyTray = _moneyTrays.FindByDenomination(denomination);
 
         var targetNumberOfBanknotes = decimal.ToInt32(Math.Floor(_amount / moneyTray!.BanknoteDenomination));
-        var realNumberOfBanknote = targetNumberOfBanknotes > moneyTray.NumberOfBanknotes
-            ? moneyTray.NumberOfBanknotes
-            : targetNumberOfBanknotes;
-
-        if (realNumberOfBanknote == 0)
-            return moneyStacks;
-
-        moneyStacks = new MoneyStack
-        {
-            Denomination = denomination,
-            Quantity = realNumberOfBanknote
-        };
+        var realNumberOfBanknote = Math.Min(targetNumberOfBanknotes, moneyTray.NumberOfBanknotes);
         _amount -= moneyTray.BanknoteDenomination * realNumberOfBanknote;
-        moneyTray.DecreaseNumberOfBanknotes(realNumberOfBanknote);
 
-        return moneyStacks;
+        return new MoneyStack { Denomination = denomination, Quantity = realNumberOfBanknote };
     }
 
-    private IEnumerable<MoneyStack> GiveApproximatedDomination(decimal denomination)
+    private IEnumerable<MoneyStack> GiveApproximatedDomination()
     {
-        var moneyStacks = new List<MoneyStack>();
-
-        var availableMoneyTrays = _moneyTraysCopy
-            .Where(mt => mt.NumberOfBanknotes > 0 && mt.BanknoteDenomination <= _amount)
-            .OrderByDescending(mt => mt.BanknoteDenomination);
-
-        foreach (var moneyTray in availableMoneyTrays)
-        {
-            moneyStacks.Add(GiveMainDenomination(moneyTray.BanknoteDenomination));
-        }
-
-        return moneyStacks;
-    }
-
-    private MoneyStack InsertMoneyStack(IMoneyTray moneyTray, MoneyStack moneyStack)
-    {
-        var allowableQuantity = moneyTray.RemainingPlaces() > moneyStack.Quantity
-            ? moneyStack.Quantity
-            : moneyTray.RemainingPlaces();
-
-        moneyTray.IncreaseNumberOfBanknotes(allowableQuantity);
-        return moneyStack with { Quantity = allowableQuantity };
+        return
+            from moneyTray in _moneyTrays
+            where moneyTray.NumberOfBanknotes > 0 && moneyTray.BanknoteDenomination <= _amount
+            let moneyStack = GiveMainDenomination(moneyTray.BanknoteDenomination)
+            where moneyStack.Quantity > 0
+            select new MoneyStack
+            {
+                Denomination = moneyStack.Denomination,
+                Quantity = moneyStack.Quantity
+            };
     }
 }
