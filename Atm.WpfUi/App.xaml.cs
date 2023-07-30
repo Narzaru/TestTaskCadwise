@@ -22,11 +22,19 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         _navigationStore.CurrentViewModel = MakeLoginViewModel();
+
+        var atmView = new AtmServiceView
+        {
+            DataContext = new AtmServiceViewModel(_atmController)
+        };
+        atmView.Show();
+
         MainWindow = new MainWindow
         {
             DataContext = new MainWindowViewModel(_navigationStore)
         };
         MainWindow.Show();
+
 
         base.OnStartup(e);
     }

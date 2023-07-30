@@ -1,0 +1,27 @@
+﻿<Window x:Class="Atm.WpfUi.Views.AtmServiceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vms="clr-namespace:Atm.WpfUi.ViewModels"
+        xmlns:local="clr-namespace:Atm.WpfUi.Views"
+        mc:Ignorable="d"
+        Title="AtmServiceView" Height="450" Width="800">
+
+    <StackPanel Orientation="Vertical"
+                d:DataContext="{d:DesignInstance Type=vms:AtmServiceViewModel, IsDesignTimeCreatable=True}">
+        <StackPanel Orientation="Horizontal">
+            <Label>Money amount: </Label>
+            <Label Content="{Binding Amount}"></Label>
+        </StackPanel>
+        <ListView ItemsSource="{Binding Moneys}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Denomination}">Denomination</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Quantity}">Quantity</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+
+</Window>

@@ -1,11 +1,15 @@
 ﻿using System.Collections;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Atm.AtmModel.Interfaces;
 using Atm.AtmModel.Services;
 using Atm.UserAccountModel.Implementation;
 using Atm.UserAccountModel.Interfaces;
 
 namespace Atm.AtmModel.Implementation;
 
-public class AtmController
+public class AtmController : INotifyPropertyChanged
 {
     private BankCardBase? _insertedCard;
     private BankAccountBase? _account;
@@ -82,6 +86,7 @@ public class AtmController
                 if (moneyTray is not null)
                 {
                     moneyTray.IncreaseNumberOfBanknotes(moneys.Quantity);
+                    OnPropertyChanged(nameof(Moneys));
                 }
             }
 
@@ -120,10 +125,15 @@ public class AtmController
                 nameof(_cashTransactionService),
                 "Attempt to withdraw an account without authorization");
 
+        if (amount > CheckBalance())
+            return new KeyValuePair<IEnumerable<MoneyStack>, Operation>(Enumerable.Empty<MoneyStack>(), new Operation(
+                () => { }, () => { }));
+
         var moneyTrayLogic = new MoneyTrayLogicService(_moneyTrays);
         if (moneyTrayLogic.TryCreateACashWithdrawOffer(amount, denomination, out var withdrawOffer))
         {
             var pullMoneyStacks = withdrawOffer.ToList();
+            OnPropertyChanged(nameof(Moneys));
 
             return new KeyValuePair<IEnumerable<MoneyStack>, Operation>(pullMoneyStacks,
                 new Operation(
@@ -151,4 +161,15 @@ public class AtmController
     {
         return _moneyTrays.Select(tray => tray.BanknoteDenomination);
     }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public IEnumerable<MoneyStack> Moneys =>
+        _moneyTrays.Select(moneyTray => new MoneyStack
+            { Denomination = moneyTray.BanknoteDenomination, Quantity = moneyTray.NumberOfBanknotes });
 }
